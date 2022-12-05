@@ -1,0 +1,4 @@
+export enum ErrorMessage {
+  TENANT_ID_REQUIRED = 'TENANT_ID_REQUIRED',
+  INVALID_INPUT = 'INVALID_INPUT',
+}

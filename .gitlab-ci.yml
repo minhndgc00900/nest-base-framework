@@ -1,0 +1,30 @@
+stages:
+  - build
+  - deploy
+variables:
+  SERVER: $SERVER
+build:
+  stage: build
+  script:
+    - echo "start login"
+    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE/nest-base-image:latest .
+    - docker push $CI_REGISTRY_IMAGE/nest-base-image:latest
+  tags:
+    - local
+  only:
+    - master
+deploy:
+  stage: deploy
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh -tt -o StrictHostKeyChecking=no "$SERVER" echo "ssh success && docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY && cd nest-base && docker-compose down && docker image rm $CI_REGISTRY_IMAGE/nest-base-image:latest && docker pull $CI_REGISTRY_IMAGE/nest-base-image:latest && docker-compose up -d"
+  tags:
+    - local
+  only:
+    - master

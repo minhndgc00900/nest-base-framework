@@ -1,0 +1,28 @@
+version: "3"
+services:
+  db:
+    image: 'postgres:latest'
+    container_name: 'db-nest-base'
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=dbpass2022
+      - POSTGRES_DB=myapp
+    networks:
+      - app-network
+    volumes:
+      - nest-base-db:/var/lib/postgresql  
+  nest-base-app:
+    image: 'registry.savvycom.vn/nodejs-base/nest-base-framework/nest-base-image:latest'
+    container_name: 'nest-base-app'
+    ports:
+      - '2443:3001'
+    depends_on:
+      - db
+    networks:
+      - app-network
+    restart: always
+volumes:
+  nest-base-db:       
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,41 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:12-alpine
+    container_name: ${POSTGRES_NAME}
+    hostname: ${POSTGRES_NAME}
+    ports:
+      - ${POSTGRES_EXPOSE_PORT}:${POSTGRES_PORT}
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - '${POSTGRES_DATA_DIR}:/var/lib/postgresql/data'
+    networks:
+      nest-network:
+        ipv4_address: 10.22.0.3
+  app:
+    container_name: ${APP_NAME}
+    image: registry.savvycom.vn/nodejs-base/nest-base-framework
+    restart: always
+    environment:
+      - NODE_ENV=${ENV_NAME}
+      - SET_CONTAINER_TIMEZONE=true
+      - CONTAINER_TIMEZONE=UTC
+      - TZ=UTC
+    ports:
+      - ${APP_EXPOSE_PORT}:${APP_PORT}
+    depends_on:
+      - 'postgres'
+    networks:
+      nest-network:
+        ipv4_address: 10.22.0.2
+
+networks:
+  nest-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.22.0.0/24
