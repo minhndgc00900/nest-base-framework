@@ -26,6 +26,14 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## CRUD Generic
+
+To make a quick setup CRUD api for 1 entity, run the command below
+
+```
+npm run generate-module __module__={entity_name}
+```
+
 ## Installation
 
 ```bash
