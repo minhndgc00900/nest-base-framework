@@ -29,10 +29,10 @@ export interface RedisQueue {
   removeOnFail: boolean;
 }
 
-export interface RmqConfig {
-  url: string;
-  name: string;
-}
+// export interface RmqConfig {
+//   url: string;
+//   name: string;
+// }
 
 export interface SMTPEmailConfig {
   host: string;
@@ -197,27 +197,27 @@ export class ConfigService {
     };
   }
 
-  get rmq(): RmqConfig {
-    if (!this.envConfig.RMQ_HOST) {
-      return null;
-    }
+  // get rmq(): RmqConfig {
+  //   if (!this.envConfig.RMQ_HOST) {
+  //     return null;
+  //   }
 
-    let url = 'amqp://';
-    if (this.envConfig.RMQ_USER) {
-      url += this.envConfig.RMQ_USER;
-      if (this.envConfig.RMQ_PASS) {
-        url += `:${this.envConfig.RMQ_PASS}`;
-      }
-      url += '@';
-    }
-    url += `${this.envConfig.RMQ_HOST}`;
-    if (this.envConfig.RMQ_PORT) {
-      url += `:${this.envConfig.RMQ_PORT}`;
-    }
-    if (this.envConfig.RMQ_PATH) {
-      url += `/${this.envConfig.RMQ_PATH}`;
-    }
-  }
+  //   let url = 'amqp://';
+  //   if (this.envConfig.RMQ_USER) {
+  //     url += this.envConfig.RMQ_USER;
+  //     if (this.envConfig.RMQ_PASS) {
+  //       url += `:${this.envConfig.RMQ_PASS}`;
+  //     }
+  //     url += '@';
+  //   }
+  //   url += `${this.envConfig.RMQ_HOST}`;
+  //   if (this.envConfig.RMQ_PORT) {
+  //     url += `:${this.envConfig.RMQ_PORT}`;
+  //   }
+  //   if (this.envConfig.RMQ_PATH) {
+  //     url += `/${this.envConfig.RMQ_PATH}`;
+  //   }
+  // }
 
   get aws(): S3Config {
     return {

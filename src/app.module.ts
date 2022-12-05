@@ -5,6 +5,7 @@ import { SharedModule } from '@/shared/shared.module';
 import { UserModule } from './core/user/user.module';
 import { DatabaseModule } from './core/database/database.module';
 import { ExtractTenantIdMiddleware } from './middlewares/extract-tenant-id.middleware';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ExtractTenantIdMiddleware } from './middlewares/extract-tenant-id.middl
       resolvers: [AcceptLanguageResolver],
     }),
     UserModule,
+    PostsModule,
   ],
   controllers: [],
 })

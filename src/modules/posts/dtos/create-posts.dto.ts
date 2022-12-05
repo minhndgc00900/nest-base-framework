@@ -7,10 +7,10 @@ import { Posts } from '../entities/posts.entity';
 export class CreatePostsDto implements ICreateEntityDto<Posts> {
   @ApiProperty()
   @IsNotEmpty()
-  column_name: string;
+  title: string;
 
   constructor(data: CreatePostsDto) {
-    this.column_name = data.column_name;
+    this.title = data.title;
   }
 
   async validate() {
@@ -19,7 +19,7 @@ export class CreatePostsDto implements ICreateEntityDto<Posts> {
 
   mapToEntity(): DeepPartial<Posts> {
     return {
-      column_name: this.column_name
+      title: this.title,
     };
   }
 }

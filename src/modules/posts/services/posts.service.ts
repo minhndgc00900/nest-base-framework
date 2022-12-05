@@ -4,4 +4,4 @@ import { Posts } from '../entities/posts.entity';
 import { PostsRepository } from '../repositories/posts.repository';
 
 @Injectable()
-export class PostsService extends CRUDBaseService<Posts>(PostsRepository) {}
+export class PostsService extends CRUDBaseService<Posts>(PostsRepository) { }

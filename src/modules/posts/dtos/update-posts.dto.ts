@@ -8,10 +8,10 @@ export class UpdatePostsDto implements ICreateEntityDto<Posts> {
   @ApiProperty()
   @IsNotEmpty()
   @IsOptional()
-  column_name: string;
+  title: string;
 
   constructor(data: UpdatePostsDto) {
-    this.column_name = data.column_name;
+    this.title = data.title;
   }
 
   async validate() {
@@ -20,7 +20,7 @@ export class UpdatePostsDto implements ICreateEntityDto<Posts> {
 
   mapToEntity(): DeepPartial<Posts> {
     return {
-      column_name: this.column_name
+      title: this.title,
     };
   }
 }
